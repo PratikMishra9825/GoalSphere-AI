@@ -461,7 +461,8 @@ export function Header() {
             {/* Scrollable overlay */}
             <div className="fixed inset-0 z-[101] overflow-hidden flex items-center justify-center p-4">
               {/* Modal card */}
-              <motion.div
+              <motion.form
+                onSubmit={handleSaveProfile}
                 initial={{ opacity: 0, scale: 0.98, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.98, y: 15 }}
@@ -488,142 +489,140 @@ export function Header() {
                   </button>
                 </div>
 
-                <form onSubmit={handleSaveProfile} className="flex-1 flex flex-col min-h-0">
-                  {/* Scrollable Form Body Container */}
-                  <div className="flex-1 overflow-y-auto flex flex-col md:flex-row min-h-0 bg-white/[0.01]">
+                {/* Scrollable Form Body Container */}
+                <div className="flex-1 overflow-y-auto flex flex-col md:flex-row min-h-0 bg-white/[0.01]">
 
-                    {/* LEFT — Avatar panel */}
-                    <div className="md:w-[200px] shrink-0 flex flex-col items-center gap-3 sm:gap-4 px-4 py-4 sm:px-5 sm:py-6 border-b md:border-b-0 md:border-r border-white/[0.06] bg-white/[0.02]">
+                  {/* LEFT — Avatar panel */}
+                  <div className="md:w-[200px] shrink-0 flex flex-col items-center gap-3 sm:gap-4 px-4 py-4 sm:px-5 sm:py-6 border-b md:border-b-0 md:border-r border-white/[0.06] bg-white/[0.02]">
 
-                      {/* Avatar */}
-                      <div
-                        className="relative group cursor-pointer select-none"
-                        onClick={() => fileInputRef.current?.click()}
+                    {/* Avatar */}
+                    <div
+                      className="relative group cursor-pointer select-none"
+                      onClick={() => fileInputRef.current?.click()}
+                    >
+                      <div className="w-20 h-20 rounded-2xl overflow-hidden ring-2 ring-white/[0.08] group-hover:ring-primary/50 transition-all duration-300 shadow-xl bg-[#111]">
+                        {editAvatar ? (
+                          <img src={editAvatar} alt={editName} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-primary/30 to-violet-600/30 flex items-center justify-center">
+                            <span className="text-2xl font-bold text-white/80">
+                              {editName ? editName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase() : "U"}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="absolute inset-0 rounded-2xl bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1">
+                        <Camera className="w-5 h-5 text-white" />
+                        <span className="text-[10px] text-white/80 font-medium">Change</span>
+                      </div>
+                      <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 bg-primary rounded-lg flex items-center justify-center shadow-lg border-[2px] border-[#0d0d0f]">
+                        <Camera className="w-3 h-3 text-white" />
+                      </div>
+                    </div>
+                    <input type="file" ref={fileInputRef} accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleImageChange} />
+
+                    {/* Name preview */}
+                    <div className="text-center">
+                      <p className="text-xs font-semibold text-white/75 truncate max-w-[160px]">{editName || "Your Name"}</p>
+                      <p className="text-[11px] text-white/30 mt-0.5 truncate max-w-[160px]">{editDesignation || "Job title"}</p>
+                    </div>
+
+                    {/* Remove photo */}
+                    {editAvatar && editAvatar !== "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" && (
+                      <button
+                        type="button"
+                        onClick={() => { setEditAvatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"); setSelectedFile(null); setRemoveAvatar(true); }}
+                        className="flex items-center gap-1.5 text-[11px] text-red-400/70 hover:text-red-400 transition-colors cursor-pointer px-2.5 py-1 rounded-lg hover:bg-red-500/10 border border-transparent hover:border-red-500/20"
                       >
-                        <div className="w-20 h-20 rounded-2xl overflow-hidden ring-2 ring-white/[0.08] group-hover:ring-primary/50 transition-all duration-300 shadow-xl bg-[#111]">
-                          {editAvatar ? (
-                            <img src={editAvatar} alt={editName} className="w-full h-full object-cover" />
-                          ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-primary/30 to-violet-600/30 flex items-center justify-center">
-                              <span className="text-2xl font-bold text-white/80">
-                                {editName ? editName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase() : "U"}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                        <div className="absolute inset-0 rounded-2xl bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1">
-                          <Camera className="w-5 h-5 text-white" />
-                          <span className="text-[10px] text-white/80 font-medium">Change</span>
-                        </div>
-                        <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 bg-primary rounded-lg flex items-center justify-center shadow-lg border-[2px] border-[#0d0d0f]">
-                          <Camera className="w-3 h-3 text-white" />
-                        </div>
-                      </div>
-                      <input type="file" ref={fileInputRef} accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleImageChange} />
+                        <X className="w-3.5 h-3.5" /> Remove photo
+                      </button>
+                    )}
 
-                      {/* Name preview */}
-                      <div className="text-center">
-                        <p className="text-xs font-semibold text-white/75 truncate max-w-[160px]">{editName || "Your Name"}</p>
-                        <p className="text-[11px] text-white/30 mt-0.5 truncate max-w-[160px]">{editDesignation || "Job title"}</p>
-                      </div>
+                    <div className="w-full border-t border-white/[0.06]" />
 
-                      {/* Remove photo */}
-                      {editAvatar && editAvatar !== "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" && (
-                        <button
-                          type="button"
-                          onClick={() => { setEditAvatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"); setSelectedFile(null); setRemoveAvatar(true); }}
-                          className="flex items-center gap-1.5 text-[11px] text-red-400/70 hover:text-red-400 transition-colors cursor-pointer px-2.5 py-1 rounded-lg hover:bg-red-500/10 border border-transparent hover:border-red-500/20"
-                        >
-                          <X className="w-3.5 h-3.5" /> Remove photo
-                        </button>
-                      )}
-
-                      <div className="w-full border-t border-white/[0.06]" />
-
-                      {/* Presets */}
-                      <div className="w-full space-y-2">
-                        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25 text-center">Presets</p>
-                        <div className="flex md:grid md:grid-cols-3 gap-2 overflow-x-auto md:overflow-x-visible pb-1 md:pb-0 justify-center md:justify-start no-scrollbar max-w-full">
-                          {PRESET_AVATARS.map((preset) => {
-                            const isSelected = editAvatar === preset.url;
-                            return (
-                              <button
-                                key={preset.id}
-                                type="button"
-                                title={preset.name}
-                                onClick={() => { setEditAvatar(preset.url); setSelectedFile(null); setRemoveAvatar(false); }}
-                                className={`relative w-12 h-12 md:w-auto md:aspect-square rounded-xl overflow-hidden border transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 shrink-0 ${isSelected ? "border-primary ring-2 ring-primary/30 scale-105" : "border-white/[0.08] hover:border-white/20"}`}
-                              >
-                                <img src={preset.url} alt={preset.name} className="w-full h-full object-cover" />
-                                {isSelected && (
-                                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                                    <CheckCircle2 className="w-3.5 h-3.5 text-white" />
-                                  </div>
-                                )}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-
-                      <p className="text-[10px] text-white/20 text-center">JPG · PNG · WEBP</p>
-                    </div>
-
-                    {/* RIGHT — Form Fields */}
-                    <div className="flex-1 px-4 py-4 sm:px-6 sm:py-6 space-y-4 sm:space-y-5">
-                      {/* Personal Info */}
-                      <div className="space-y-3">
-                        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25">Personal Info</p>
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-medium text-white/45">Full Name <span className="text-red-400/80">*</span></label>
-                          <Input value={editName} onChange={(e) => setEditName(e.target.value)} required placeholder="e.g. Priya Sharma" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
-                        </div>
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-medium text-white/45">Work Email <span className="text-red-400/80">*</span></label>
-                          <Input type="email" value={editEmail} onChange={(e) => setEditEmail(e.target.value)} required placeholder="you@company.com" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
-                        </div>
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-medium text-white/45">Phone</label>
-                          <Input type="tel" value={editPhone} onChange={(e) => setEditPhone(e.target.value)} placeholder="+91 98765 43210" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
-                        </div>
-                      </div>
-
-                      {/* Work Details */}
-                      <div className="space-y-3 border-t border-white/[0.05] pt-4">
-                        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25">Work Details</p>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                          <div className="space-y-1.5">
-                            <label className="text-xs font-medium text-white/45">Department</label>
-                            <Input value={editDepartment} onChange={(e) => setEditDepartment(e.target.value)} placeholder="Engineering" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
-                          </div>
-                          <div className="space-y-1.5">
-                            <label className="text-xs font-medium text-white/45">Job Title</label>
-                            <Input value={editDesignation} onChange={(e) => setEditDesignation(e.target.value)} placeholder="Senior Developer" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
-                          </div>
-                        </div>
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-medium text-white/45">Bio</label>
-                          <textarea value={editBio} onChange={(e) => setEditBio(e.target.value)} rows={3} placeholder="A short bio about yourself..." className="w-full bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/20 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 resize-none transition-all leading-relaxed" />
-                        </div>
+                    {/* Presets */}
+                    <div className="w-full space-y-2">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25 text-center">Presets</p>
+                      <div className="flex md:grid md:grid-cols-3 gap-2 overflow-x-auto md:overflow-x-visible pb-1 md:pb-0 justify-center md:justify-start no-scrollbar max-w-full">
+                        {PRESET_AVATARS.map((preset) => {
+                          const isSelected = editAvatar === preset.url;
+                          return (
+                            <button
+                              key={preset.id}
+                              type="button"
+                              title={preset.name}
+                              onClick={() => { setEditAvatar(preset.url); setSelectedFile(null); setRemoveAvatar(false); }}
+                              className={`relative w-12 h-12 md:w-auto md:aspect-square rounded-xl overflow-hidden border transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 shrink-0 ${isSelected ? "border-primary ring-2 ring-primary/30 scale-105" : "border-white/[0.08] hover:border-white/20"}`}
+                            >
+                              <img src={preset.url} alt={preset.name} className="w-full h-full object-cover" />
+                              {isSelected && (
+                                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+                                </div>
+                              )}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
 
+                    <p className="text-[10px] text-white/20 text-center">JPG · PNG · WEBP</p>
                   </div>
 
-                  {/* Fixed Pinned Footer outside scrollable area */}
-                  <div className="flex items-center justify-between gap-3 px-6 py-3.5 border-t border-white/[0.06] bg-[#0d0d0f] shrink-0 rounded-b-2xl">
-                    <p className="text-[11px] text-white/20 hidden sm:block">Changes save to your account</p>
-                    <div className="flex items-center gap-2.5 ml-auto">
-                      <button type="button" className="px-4 py-2 rounded-xl text-sm text-white/45 hover:text-white hover:bg-white/[0.06] transition-all cursor-pointer border border-transparent hover:border-white/10" onClick={() => setIsEditModalOpen(false)} disabled={isSaving}>
-                        Cancel
-                      </button>
-                      <button type="submit" className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" disabled={isSaving}>
-                        {isSaving ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Saving…</> : "Save Changes"}
-                      </button>
+                  {/* RIGHT — Form Fields */}
+                  <div className="flex-1 px-4 py-4 sm:px-6 sm:py-6 space-y-4 sm:space-y-5">
+                    {/* Personal Info */}
+                    <div className="space-y-3">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25">Personal Info</p>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-white/45">Full Name <span className="text-red-400/80">*</span></label>
+                        <Input value={editName} onChange={(e) => setEditName(e.target.value)} required placeholder="e.g. Priya Sharma" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-white/45">Work Email <span className="text-red-400/80">*</span></label>
+                        <Input type="email" value={editEmail} onChange={(e) => setEditEmail(e.target.value)} required placeholder="you@company.com" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-white/45">Phone</label>
+                        <Input type="tel" value={editPhone} onChange={(e) => setEditPhone(e.target.value)} placeholder="+91 98765 43210" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
+                      </div>
+                    </div>
+
+                    {/* Work Details */}
+                    <div className="space-y-3 border-t border-white/[0.05] pt-4">
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25">Work Details</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div className="space-y-1.5">
+                          <label className="text-xs font-medium text-white/45">Department</label>
+                          <Input value={editDepartment} onChange={(e) => setEditDepartment(e.target.value)} placeholder="Engineering" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-xs font-medium text-white/45">Job Title</label>
+                          <Input value={editDesignation} onChange={(e) => setEditDesignation(e.target.value)} placeholder="Senior Developer" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
+                        </div>
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-white/45">Bio</label>
+                        <textarea value={editBio} onChange={(e) => setEditBio(e.target.value)} rows={3} placeholder="A short bio about yourself..." className="w-full bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder:text-white/20 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 resize-none transition-all leading-relaxed" />
+                      </div>
                     </div>
                   </div>
-                </form>
-              </motion.div>
+
+                </div>
+
+                {/* Fixed Pinned Footer outside scrollable area */}
+                <div className="flex items-center justify-between gap-3 px-6 py-3.5 border-t border-white/[0.06] bg-[#0d0d0f] shrink-0 rounded-b-2xl">
+                  <p className="text-[11px] text-white/20 hidden sm:block">Changes save to your account</p>
+                  <div className="flex items-center gap-2.5 ml-auto">
+                    <button type="button" className="px-4 py-2 rounded-xl text-sm text-white/45 hover:text-white hover:bg-white/[0.06] transition-all cursor-pointer border border-transparent hover:border-white/10" onClick={() => setIsEditModalOpen(false)} disabled={isSaving}>
+                      Cancel
+                    </button>
+                    <button type="submit" className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" disabled={isSaving}>
+                      {isSaving ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Saving…</> : "Save Changes"}
+                    </button>
+                  </div>
+                </div>
+              </motion.form>
             </div>
           </>
         )}
