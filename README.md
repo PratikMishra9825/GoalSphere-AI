@@ -43,20 +43,48 @@ The system components seamlessly communicate through established design patterns
 
 ---
 
-### 2. ROLE-BASED WORKFLOW DIAGRAM
+### 2. ROLE-BASED WORKFLOW & ARCHITECTURE DIAGRAM
 
-GoalSphere AI aligns organizational layers through clear permissions, workflows, and continuous tracking loops:
+GoalSphere AI aligns its operational layers through strict access control, segmented workspaces, and continuous data aggregation pipelines:
 
-```
-    [ Employees ]
-          │
-          ▼ (Create Objectives & Submit Dynamic Check-ins)
-    [ Managers ]
-          │
-          ▼ (Approve Goals, Review Telemetry, & Manage Tasks)
-    [ HR / Admins ]
-          │
-          ▼ (Oversee Company Governance, Direct Recruitment, & Analyze Analytics)
+```mermaid
+graph TD
+    %% Styling Configuration
+    classDef employee fill:#4f46e5,stroke:#3730a3,stroke-width:2px,color:#fff;
+    classDef manager fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#fff;
+    classDef hr fill:#db2777,stroke:#9d174d,stroke-width:2px,color:#fff;
+    classDef database fill:#059669,stroke:#065f46,stroke-width:2px,color:#fff;
+    classDef ai fill:#d97706,stroke:#92400e,stroke-width:2px,color:#fff;
+
+    %% Roles
+    Emp["👤 Employee Workspace"]:::employee
+    Mgr["👥 Manager Command Deck"]:::manager
+    HR["👑 HR Admin Command Hub"]:::hr
+
+    %% Employee Actions
+    Emp -->|Submit OKRs| G[Goal Objectives]
+    Emp -->|Perform checkIn| CI[checkIns Sub-doc]
+    Emp -->|Leave Request| L[Leave Requests]
+    Emp -->|Task Completion| T[Daily Tasks]
+
+    %% Manager Actions
+    Mgr -->|Goal Review Queue| G
+    Mgr -->|Leave Review Queue| L
+    Mgr -->|Assign Tasks| T
+    Mgr -->|Teammates score averages| CI
+
+    %% HR Actions
+    HR -->|Employee CRUD| U[User Directory]
+    HR -->|Global settings sync| S[SystemSettings]
+    HR -->|Candidate stages| C[Candidate Pipeline]
+    HR -->|Broadcast announcements| A[Announcements]
+
+    %% Core Services & Persistence
+    G & CI & L & T & U & S & C & A --> DB[("MongoDB Atlas Collections")]:::database
+    
+    %% AI Pipeline
+    DB -->|Telemetry data aggregation| AI["🤖 Google Gemini AI Engine"]:::ai
+    AI -->|Predictive Burnout & Weekly Reports| Emp & Mgr & HR
 ```
 
 #### Detailed Role Responsibilities and Permissions

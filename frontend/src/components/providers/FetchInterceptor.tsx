@@ -8,7 +8,8 @@ export function FetchInterceptor() {
       const originalFetch = window.fetch;
       window.fetch = function (input, init) {
         if (typeof input === "string" && input.includes("http://localhost:5000")) {
-          const newUrl = input.replace("http://localhost:5000", `http://${window.location.hostname}:5000`);
+          const newUrl = input.replace("http://localhost:5000", process.env.NEXT_PUBLIC_API_URL ||
+            `http://${window.location.hostname}:5000`);
           return originalFetch(newUrl, init);
         }
         return originalFetch(input, init);
