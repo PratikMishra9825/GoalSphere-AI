@@ -459,7 +459,14 @@ export function Header() {
             />
 
             {/* Scrollable overlay */}
-            <div className="fixed inset-0 z-[101] overflow-hidden flex items-center justify-center p-4">
+            <div 
+              className="fixed inset-0 z-[101] overflow-y-auto flex items-center justify-center p-2 sm:p-4"
+              onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                  setIsEditModalOpen(false);
+                }
+              }}
+            >
               {/* Modal card */}
               <motion.form
                 onSubmit={handleSaveProfile}
@@ -482,15 +489,18 @@ export function Header() {
                   </div>
                   <button
                     type="button"
-                    className="w-8 h-8 flex items-center justify-center rounded-lg text-white/40 hover:text-white hover:bg-white/[0.08] transition-all cursor-pointer shrink-0"
+                    className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl text-white/40 hover:text-white hover:bg-white/[0.08] transition-all cursor-pointer shrink-0 -mr-2 sm:-mr-1"
                     onClick={() => setIsEditModalOpen(false)}
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-5 h-5 sm:w-4 sm:h-4" />
                   </button>
                 </div>
 
                 {/* Scrollable Form Body Container */}
-                <div className="flex-1 overflow-y-auto flex flex-col md:flex-row min-h-0 bg-white/[0.01]">
+                <div 
+                  className="flex-1 overflow-y-auto flex flex-col md:flex-row min-h-0 bg-white/[0.01]"
+                  style={{ WebkitOverflowScrolling: "touch" }}
+                >
 
                   {/* LEFT — Avatar panel */}
                   <div className="md:w-[200px] shrink-0 flex flex-col items-center gap-3 sm:gap-4 px-4 py-4 sm:px-5 sm:py-6 border-b md:border-b-0 md:border-r border-white/[0.06] bg-white/[0.02]">
