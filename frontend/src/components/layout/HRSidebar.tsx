@@ -89,11 +89,14 @@ export function HRSidebar() {
     window.addEventListener("userProfileUpdated", handleUpdate);
 
     const handleToggle = () => setIsMobileOpen(prev => !prev);
+    const handleCloseModalEvent = () => setIsMobileOpen(false);
     window.addEventListener("toggleMobileSidebar", handleToggle);
+    window.addEventListener("openEditProfileModal", handleCloseModalEvent);
 
     return () => {
       window.removeEventListener("userProfileUpdated", handleUpdate);
       window.removeEventListener("toggleMobileSidebar", handleToggle);
+      window.removeEventListener("openEditProfileModal", handleCloseModalEvent);
     };
   }, []);
 
