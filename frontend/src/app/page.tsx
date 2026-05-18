@@ -17,24 +17,24 @@ export default function LandingPage() {
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-orange-600/10 blur-[140px] rounded-full pointer-events-none animate-pulse" />
 
       {/* Header / Navbar */}
-      <header className="w-full absolute top-0 p-6 z-50">
-        <div className="max-w-7xl mx-auto flex justify-between items-center bg-white/[0.02] backdrop-blur-md border border-white/5 py-4 px-6 rounded-2xl">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
-              <Target className="w-5 h-5 text-black font-extrabold" />
+      <header className="w-full absolute top-0 p-3 sm:p-6 z-50">
+        <div className="max-w-7xl mx-auto flex justify-between items-center bg-white/[0.02] backdrop-blur-md border border-white/5 py-3 sm:py-4 px-3 sm:px-6 rounded-2xl">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-amber-500/20 shrink-0">
+              <Target className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-black font-extrabold" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-white flex items-center gap-1.5">
-              GoalSphere <span className="text-[10px] bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full text-amber-500 font-semibold tracking-wider uppercase">AI</span>
+            <span className="font-bold text-base sm:text-xl tracking-tight text-white flex items-center gap-1 sm:gap-1.5">
+              GoalSphere <span className="hidden min-[380px]:inline-block text-[8px] sm:text-[10px] bg-amber-500/10 border border-amber-500/30 px-1.5 sm:px-2 py-0.5 rounded-full text-amber-500 font-semibold tracking-wider uppercase">AI</span>
             </span>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-1.5 sm:gap-4 items-center">
             <Link href="/login">
-              <Button variant="ghost" className="text-gray-400 hover:text-white transition-colors">Sign In</Button>
+              <Button variant="ghost" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2">Sign In</Button>
             </Link>
             <Link href="/login">
-              <Button className="bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-xl px-6 shadow-lg shadow-amber-500/15 group relative overflow-hidden transition-all duration-300">
+              <Button className="bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-xl px-3 sm:px-6 py-1.5 sm:py-2 shadow-lg shadow-amber-500/15 group relative overflow-hidden transition-all duration-300 text-xs sm:text-sm shrink-0">
                 <span className="relative z-10 flex items-center gap-1">
-                  Get Started <Sparkles className="w-4 h-4 text-black animate-pulse" />
+                  Get Started <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black animate-pulse" />
                 </span>
                 <span className="absolute inset-0 bg-gradient-to-r from-orange-600 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Button>
@@ -59,7 +59,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 pb-2 leading-[1.05]"
+          className="text-4xl min-[400px]:text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 pb-2 leading-[1.05]"
         >
           Align Decisions. <br /> Predict Outcomes.
         </motion.h1>
