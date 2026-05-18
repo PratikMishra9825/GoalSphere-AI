@@ -1,0 +1,27 @@
+# Dependency directories
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Next.js build output
+.next/
+frontend/.next/
+frontend/tsconfig.tsbuildinfo
+
+# Environment files
+.env
+backend/.env
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Logs and test outputs
+*.log
+*.pdf
+backend/test-output.pdf
+.gemini/
