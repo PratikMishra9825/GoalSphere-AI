@@ -46,6 +46,7 @@ interface TeamMember {
   avatar: string;
   score: number;
   status: string;
+  email?: string;
 }
 
 interface ChatUser {

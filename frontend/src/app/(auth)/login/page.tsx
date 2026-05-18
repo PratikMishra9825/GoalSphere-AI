@@ -267,7 +267,7 @@ export default function LoginPage() {
                 setError("Google Login failed. Please try again.");
                 toast.error("Google sign-in failed.");
               }}
-              theme="filled_dark"
+              theme="filled_black"
               shape="pill"
               text="continue_with"
               width="320px"

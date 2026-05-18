@@ -209,10 +209,10 @@ export default function TeamGoalsPage() {
                             />
                             <span className="text-xs">%</span>
                           </div>
-                          <Button size="xs" onClick={() => handleSaveInlineEdit(goal._id)} className="bg-emerald-500 hover:bg-emerald-600 h-6 w-6 p-0 text-white">
+                          <Button size="icon" onClick={() => handleSaveInlineEdit(goal._id)} className="bg-emerald-500 hover:bg-emerald-600 h-6 w-6 p-0 text-white">
                             <Check className="w-3.5 h-3.5" />
                           </Button>
-                          <Button size="xs" onClick={handleCancelEdit} className="bg-red-500 hover:bg-red-600 h-6 w-6 p-0 text-white">
+                          <Button size="icon" onClick={handleCancelEdit} className="bg-red-500 hover:bg-red-600 h-6 w-6 p-0 text-white">
                             <X className="w-3.5 h-3.5" />
                           </Button>
                         </div>
