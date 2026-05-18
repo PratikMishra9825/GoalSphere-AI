@@ -493,7 +493,7 @@ export function Header() {
                   <div className="flex-1 overflow-y-auto flex flex-col md:flex-row min-h-0 bg-white/[0.01]">
 
                     {/* LEFT — Avatar panel */}
-                    <div className="md:w-[200px] shrink-0 flex flex-col items-center gap-4 px-5 py-6 border-b md:border-b-0 md:border-r border-white/[0.06] bg-white/[0.02]">
+                    <div className="md:w-[200px] shrink-0 flex flex-col items-center gap-3 sm:gap-4 px-4 py-4 sm:px-5 sm:py-6 border-b md:border-b-0 md:border-r border-white/[0.06] bg-white/[0.02]">
 
                       {/* Avatar */}
                       <div
@@ -541,9 +541,9 @@ export function Header() {
                       <div className="w-full border-t border-white/[0.06]" />
 
                       {/* Presets */}
-                      <div className="w-full space-y-2.5">
+                      <div className="w-full space-y-2">
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25 text-center">Presets</p>
-                        <div className="grid grid-cols-3 gap-2">
+                        <div className="flex md:grid md:grid-cols-3 gap-2 overflow-x-auto md:overflow-x-visible pb-1 md:pb-0 justify-center md:justify-start no-scrollbar max-w-full">
                           {PRESET_AVATARS.map((preset) => {
                             const isSelected = editAvatar === preset.url;
                             return (
@@ -552,7 +552,7 @@ export function Header() {
                                 type="button"
                                 title={preset.name}
                                 onClick={() => { setEditAvatar(preset.url); setSelectedFile(null); setRemoveAvatar(false); }}
-                                className={`relative aspect-square rounded-xl overflow-hidden border transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 ${isSelected ? "border-primary ring-2 ring-primary/30 scale-105" : "border-white/[0.08] hover:border-white/20"}`}
+                                className={`relative w-12 h-12 md:w-auto md:aspect-square rounded-xl overflow-hidden border transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 shrink-0 ${isSelected ? "border-primary ring-2 ring-primary/30 scale-105" : "border-white/[0.08] hover:border-white/20"}`}
                               >
                                 <img src={preset.url} alt={preset.name} className="w-full h-full object-cover" />
                                 {isSelected && (
@@ -566,11 +566,11 @@ export function Header() {
                         </div>
                       </div>
 
-                      <p className="text-[10px] text-white/20 text-center">JPG · PNG · WEBP · max 2 MB</p>
+                      <p className="text-[10px] text-white/20 text-center">JPG · PNG · WEBP</p>
                     </div>
 
                     {/* RIGHT — Form Fields */}
-                    <div className="flex-1 px-6 py-6 space-y-5">
+                    <div className="flex-1 px-4 py-4 sm:px-6 sm:py-6 space-y-4 sm:space-y-5">
                       {/* Personal Info */}
                       <div className="space-y-3">
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25">Personal Info</p>
@@ -591,7 +591,7 @@ export function Header() {
                       {/* Work Details */}
                       <div className="space-y-3 border-t border-white/[0.05] pt-4">
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25">Work Details</p>
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                           <div className="space-y-1.5">
                             <label className="text-xs font-medium text-white/45">Department</label>
                             <Input value={editDepartment} onChange={(e) => setEditDepartment(e.target.value)} placeholder="Engineering" className="bg-white/[0.04] border-white/[0.08] text-white placeholder:text-white/20 focus-visible:ring-primary/40 focus-visible:border-primary/40 h-10 rounded-xl text-sm" />
